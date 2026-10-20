@@ -54,11 +54,12 @@ class FLMSyncPipeline:
         # ==============================================================================
         # STAGE 1: AUTHENTICATION HANDSHAKE
         # ==============================================================================
-        notify("FLM STAGE 1/4", "Kiem tra phien dang nhap FLM trong WebView2...")
+        notify("FLM STAGE 1/4", "Kiem tra va tu dong dong bo phien dang nhap FLM qua SSO...")
         try:
             curr_url = popup.get_current_url() or ""
-            if "flm.fpt.edu.vn" not in curr_url:
-                popup.load_url("https://flm.fpt.edu.vn/Login")
+            if "flm.fpt.edu.vn" not in curr_url or "login" in curr_url.lower():
+                # Chuyen huong truc tiep toi endpoint Login SSO voi cap hoc FPTU
+                popup.load_url("https://flm.fpt.edu.vn/Home/Login?educationLevel=fptu")
                 time.sleep(2)
         except Exception as e:
             print(f"[FLM] Loi chuyen trang sang FLM: {e}")
@@ -118,8 +119,8 @@ class FLMSyncPipeline:
 
     def _wait_for_auth(self, popup, notify_fn, timeout_sec: int = 120) -> bool:
         """
-        Duy trì và theo dõi URL cho đến khi người dùng vượt qua trang đăng nhập FLM.
-        Tự động chọn cấp học FPTU nếu đang ở màn hình Login.
+        Duy trì và theo dõi URL cho đến khi phiên đăng nhập FLM được thiết lập.
+        Tự động thực hiện bắt tay SSO Google/FEID bằng phiên làm việc sẵn có từ FAP.
         """
         last_notified_url = ""
         for attempt in range(timeout_sec):
@@ -131,26 +132,53 @@ class FLMSyncPipeline:
                     last_notified_url = url
                     print(f"[FLM AUTH] URL hien tai: {url}")
 
-                # Nếu đang ở trang Login, tự động chọn FPTU trong dropdown
-                if "flm.fpt.edu.vn/login" in url.lower():
+                lower_url = url.lower()
+
+                # Trường hợp 1: Nếu đang ở màn hình Login của FLM, tự động chọn FPTU và kích hoạt SSO
+                if "flm.fpt.edu.vn/login" in lower_url:
                     try:
                         popup.evaluate_js("""
                             (function() {
+                                if (window.__flm_auto_sso_started) return;
                                 const sel = document.getElementById('drSelectEduLevel');
-                                if (sel && sel.value !== 'fptu') {
+                                if (sel) {
                                     sel.value = 'fptu';
                                     localStorage.setItem('SelectedEduLevel', 'fptu');
                                     if (window.$) { $(sel).trigger('change'); }
+                                }
+                                window.__flm_auto_sso_started = true;
+                                setTimeout(() => {
+                                    if (typeof loginWithFEID === 'function') {
+                                        loginWithFEID();
+                                    } else {
+                                        window.location.href = "/Home/Login?educationLevel=fptu";
+                                    }
+                                }, 300);
+                            })();
+                        """)
+                    except Exception:
+                        pass
+
+                # Trường hợp 2: Đang ở màn hình xác thực tập trung FEID
+                elif "feid.fpt.edu.vn" in lower_url:
+                    try:
+                        popup.evaluate_js("""
+                            (function() {
+                                if (window.__feid_auto_sso_clicked) return;
+                                const googleBtn = document.querySelector('a[href*="scheme=Google"]');
+                                if (googleBtn) {
+                                    window.__feid_auto_sso_clicked = true;
+                                    console.log("[FEID] Tu dong click lien ket Google SSO...");
+                                    googleBtn.click();
                                 }
                             })();
                         """)
                     except Exception:
                         pass
 
-                # Nếu đã vào được trang Home, AllPrequisiteSubject hoặc các trang chức năng FLM
+                # Trường hợp 3: Đã vào được trang chức năng FLM (/home, /gui/, /role/, ...)
                 if "flm.fpt.edu.vn" in url:
-                    lower_url = url.lower()
-                    if "/home" in lower_url or "/gui/" in lower_url:
+                    if any(p in lower_url for p in ["/home", "/gui/", "/role/student"]):
                         notify_fn("SUCCESS", f"Xac thuc FLM thanh cong tai: {url}")
                         return True
                     if (not any(x in lower_url for x in ["login", "signin", "accounts.google.com", "feid.fpt.edu.vn"])
@@ -159,7 +187,6 @@ class FLMSyncPipeline:
                         notify_fn("SUCCESS", f"Xac thuc FLM thanh cong tai: {url}")
                         return True
             except Exception:
-                # Không thoát khi gặp exception do trình duyệt đang bận điều hướng
                 pass
         return False
 
