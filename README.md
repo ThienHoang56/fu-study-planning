@@ -13,12 +13,29 @@
 - Python 3.10+
 - Microsoft Edge WebView2 Runtime (có sẵn trên Windows 10/11)
 
-### Cài đặt thư viện
+### Cài đặt môi trường ảo (venv) & Thư viện
+
+**Trên Windows (PowerShell / Command Prompt):**
 ```bash
-pip install pywebview beautifulsoup4
+# 1. Tạo môi trường ảo
+python -m venv .venv
+
+# 2. Kích hoạt môi trường ảo
+# Trên PowerShell:
+.\.venv\Scripts\Activate.ps1
+# Hoặc trên Command Prompt (cmd):
+.\.venv\Scripts\activate.bat
+
+# 3. Cài đặt các thư viện cần thiết
+pip install -r requirements.txt
 ```
 
 ### Chạy ứng dụng
+Sau khi đã kích hoạt môi trường ảo:
 ```bash
 python main.py
+```
+Hoặc chạy trực tiếp qua Python của môi trường ảo:
+```bash
+.\.venv\Scripts\python.exe main.py
 ```
