@@ -1,0 +1,788 @@
+{
+  "term_id": "01a07ccd-e1df-7443-8265-8406ce90ee57",
+  "term_name": "Fall2026",
+  "extracted_at": "2026-10-19T17:49:08Z",
+  "total_courses": 6,
+  "courses": {
+    "Experiential Entrepreneurship 2 (EXE201) (EXE201_4)": {
+      "course_id": "01a07cce-5b23-7213-87a4-55736abd788a",
+      "short_name": "EXE201",
+      "total_sessions": 16,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Friday 11/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Friday 11/09/2026",
+          "slot": "17:30 - 19:45",
+          "room": "Gamma 203.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Friday 18/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "4",
+          "date": "Friday 25/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "5",
+          "date": "Saturday 26/09/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 118.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "6",
+          "date": "Saturday 26/09/2026",
+          "slot": "17:30 - 19:45",
+          "room": "Gamma 107.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "7",
+          "date": "Friday 02/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "8",
+          "date": "Friday 09/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "9",
+          "date": "Friday 16/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "10",
+          "date": "Saturday 17/10/2026",
+          "slot": "17:30 - 19:45",
+          "room": "Gamma 107.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "11",
+          "date": "Friday 23/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "12",
+          "date": "Friday 30/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "13",
+          "date": "Saturday 31/10/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 118.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "14",
+          "date": "Friday 06/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "15",
+          "date": "Saturday 07/11/2026",
+          "slot": "17:30 - 19:45",
+          "room": "Gamma 107.",
+          "lecturer": "-",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "16",
+          "date": "Friday 13/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 104.",
+          "lecturer": "SuongNTT9",
+          "class_name": "EXE201_4",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
+    "Mobile Programming (PRM393) (SE19B02)": {
+      "course_id": "01a07cce-5b23-7807-acd3-f60d50290dac",
+      "short_name": "PRM393",
+      "total_sessions": 20,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Tuesday 08/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Thursday 10/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Tuesday 15/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "4",
+          "date": "Thursday 17/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "5",
+          "date": "Tuesday 22/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "6",
+          "date": "Thursday 24/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "7",
+          "date": "Tuesday 29/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "8",
+          "date": "Thursday 01/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "9",
+          "date": "Tuesday 06/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "10",
+          "date": "Thursday 08/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "11",
+          "date": "Tuesday 13/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "12",
+          "date": "Thursday 15/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "13",
+          "date": "Tuesday 20/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "14",
+          "date": "Thursday 22/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "15",
+          "date": "Tuesday 27/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "16",
+          "date": "Thursday 29/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "17",
+          "date": "Tuesday 03/11/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "18",
+          "date": "Thursday 05/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "19",
+          "date": "Tuesday 10/11/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "20",
+          "date": "Thursday 12/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "hoangtv",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
+    "Xây dựng ứng dụng back-end với With .NET (PRN232) (SE19B02)": {
+      "course_id": "01a07cce-5b22-7674-9c1c-31bb706f8921",
+      "short_name": "PRN232",
+      "total_sessions": 22,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Tuesday 08/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Thursday 10/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Tuesday 15/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "4",
+          "date": "Thursday 17/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "5",
+          "date": "Tuesday 22/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "6",
+          "date": "Thursday 24/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "7",
+          "date": "Tuesday 29/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "8",
+          "date": "Thursday 01/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "9",
+          "date": "Tuesday 06/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "10",
+          "date": "Thursday 08/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "11",
+          "date": "Tuesday 13/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "12",
+          "date": "Thursday 15/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "13",
+          "date": "Tuesday 20/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "14",
+          "date": "Thursday 22/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "15",
+          "date": "Tuesday 27/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "16",
+          "date": "Thursday 29/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "17",
+          "date": "Tuesday 03/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "18",
+          "date": "Thursday 05/11/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "19",
+          "date": "Tuesday 10/11/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "20",
+          "date": "Thursday 12/11/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "21",
+          "date": "Monday 16/11/2026",
+          "slot": "07:00 - 09:15",
+          "room": "Gamma 205.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "22",
+          "date": "Wednesday 18/11/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 205.",
+          "lecturer": "QuangLTN3",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
+    "Ethics in IT (ITE302c) (ITE302c_1)": {
+      "course_id": "01a07cce-5b20-7d41-801a-7c3d1612c9f8",
+      "short_name": "ITE302c",
+      "total_sessions": 2,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Monday 07/09/2026",
+          "slot": "19:30 - 21:00",
+          "room": "Gamma 109",
+          "lecturer": "nguyenpht",
+          "class_name": "ITE302c_1",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Thursday 26/11/2026",
+          "slot": "19:30 - 21:00",
+          "room": "Gamma 113",
+          "lecturer": "nguyenpht",
+          "class_name": "ITE302c_1",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
+    "Philosophy of Marxism – Leninism (MLN111) (SE19B02)": {
+      "course_id": "01a07cce-5b23-7b46-acb6-96db83922e23",
+      "short_name": "MLN111",
+      "total_sessions": 12,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Monday 07/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Wednesday 09/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Monday 14/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "4",
+          "date": "Wednesday 16/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "5",
+          "date": "Saturday 19/09/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 204.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "6",
+          "date": "Monday 21/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "7",
+          "date": "Wednesday 23/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "8",
+          "date": "Monday 28/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "9",
+          "date": "Wednesday 30/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "10",
+          "date": "Saturday 03/10/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 204.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "11",
+          "date": "Monday 05/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "12",
+          "date": "Wednesday 07/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "HuyTQ72",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
+    "Political economics of Marxism – Leninism (MLN122) (SE19B02)": {
+      "course_id": "01a07cce-5b23-71b9-90e9-0e21f1633ba6",
+      "short_name": "MLN122",
+      "total_sessions": 10,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Monday 07/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Wednesday 09/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Monday 14/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "4",
+          "date": "Wednesday 16/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "5",
+          "date": "Monday 21/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "6",
+          "date": "Wednesday 23/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "7",
+          "date": "Monday 28/09/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "8",
+          "date": "Wednesday 30/09/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "9",
+          "date": "Monday 05/10/2026",
+          "slot": "15:00 - 17:15",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "10",
+          "date": "Wednesday 07/10/2026",
+          "slot": "12:30 - 14:45",
+          "room": "Gamma 302.",
+          "lecturer": "MinhNV111",
+          "class_name": "SE19B02",
+          "status": "Attendance exempt"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FU Study Planning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-hover: #f1f5f9;
+      --surface-active: #e2e8f0;
+      --border: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-faint: #94a3b8;
+      --accent: #ea580c;
+      --accent-muted: rgba(234, 88, 12, 0.08);
+      --success: #059669;
+      --success-muted: rgba(5, 150, 105, 0.08);
+      --info: #0284c7;
+      --info-muted: rgba(2, 132, 199, 0.08);
+      --warning: #d97706;
+      --warning-muted: rgba(217, 119, 6, 0.08);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --hover-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --surface: #121215;
+      --surface-hover: #18181c;
+      --surface-active: #222228;
+      --border: #27272a;
+      --border-subtle: #1e1e22;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --text-faint: #71717a;
+      --accent: #f97316;
+      --accent-muted: rgba(249, 115, 22, 0.12);
+      --success: #10b981;
+      --success-muted: rgba(16, 185, 129, 0.12);
+      --info: #0ea5e9;
+      --info-muted: rgba(14, 165, 233, 0.12);
+      --warning: #f59e0b;
+      --warning-muted: rgba(245, 158, 11, 0.12);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* SVG icon utility */
+    .icon {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       SCREEN 1: LOGIN VIEW (Clean, minimalist Auth)
+       ========================================================= */
+    #screen-login {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    }
+
+    .auth-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .auth-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .auth-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #ffffff;
+      color: #09090b;
+      border: 1px solid #e4e4e7;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-google:hover {
+      background: #f4f4f5;
+    }
+
+    .btn-google:active {
+      transform: scale(0.99);
+    }
+
+    .btn-google svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Sync status container */
+    .sync-status {
+      display: none;
+      margin-top: 20px;
+      padding: 12px 14px;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* =========================================================
+       SCREEN 2: MAIN DASHBOARD VIEW
+       ========================================================= */
+    #screen-render {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Top Navigation Bar */
+    .navbar {
+      height: 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-logo {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .term-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface-hover);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-action:hover {
+      background: var(--surface-active);
+      border-color: var(--text-faint);
+    }
+
+    /* Main Content Layout */
+    .app-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Sidebar Course Switcher */
+    .sidebar {
+      width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-faint);
+    }
+
+    .course-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .course-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .course-item:hover {
+      background: var(--surface-hover);
+    }
+
+    .course-item.active {
+      background: var(--surface-active);
+      border-color: var(--border);
+    }
+
+    .course-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .course-code {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .course-item.active .course-code {
+      color: var(--accent);
+    }
+
+    .course-count {
+      font-size: 11px;
+      color: var(--text-faint);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .course-name-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Right Main Panel */
+    .main-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .panel-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .course-meta-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 4px;
+    }
+
+    .course-meta-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .meta-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .view-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-wrap .icon {
+      position: absolute;
+      left: 10px;
+      color: var(--text-faint);
+    }
+
+    .search-input {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12.5px;
+      padding: 6px 12px 6px 30px;
+      border-radius: 6px;
+      width: 200px;
+      outline: none;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--text-faint);
+      width: 240px;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-faint);
+    }
+
+    /* View Switcher */
+    .segmented-control {
+      display: flex;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      padding: 2px;
+      border-radius: 6px;
+    }
+
+    .seg-btn {
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .seg-btn.active {
+      background: var(--surface-active);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Content Area */
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    /* Grid Layout for Sessions */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .session-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+
+    .session-card:hover {
+      border-color: var(--text-faint);
+      background: var(--surface-hover);
+      box-shadow: var(--hover-shadow);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge-stt {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-active);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .badge-status {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .status-exempt {
+      background: var(--info-muted);
+      color: var(--info);
+    }
+
+    .status-attended {
+      background: var(--success-muted);
+      color: var(--success);
+    }
+
+    .status-absent {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+    }
+
+    .status-future {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+    }
+
+    .card-date {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-top: 6px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .meta-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-room {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 11.5px;
+      color: var(--text);
+    }
+
+    /* Table Layout for Sessions (Alternative View) */
+    .sessions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .sessions-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--surface-hover);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sessions-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text);
+    }
+
+    .sessions-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .sessions-table tr:hover td {
+      background: var(--surface-hover);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SCREEN 1: LOGIN -->
+  <div id="screen-login">
+    <div class="auth-card">
+      <div class="auth-brand">FU</div>
+      <h1 class="auth-title">FU Study Planning</h1>
+      <p class="auth-desc">Đăng nhập tài khoản trường để đồng bộ lịch học và bài tập cả kỳ.</p>
+
+      <button class="btn-google" id="btn-login" onclick="startGoogleLogin()">
+        <svg viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Đăng nhập với Google (@fpt.edu.vn)</span>
+      </button>
+
+      <div class="sync-status" id="sync-status">
+        <div class="spinner"></div>
+        <span id="sync-text">Đang kết nối FAP...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: MAIN DASHBOARD -->
+  <div id="screen-render">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="nav-left">
+        <div class="nav-brand">
+          <div class="nav-logo">F</div>
+          <span>FU Study</span>
+        </div>
+        <span class="term-tag" id="nav-term">Fall 2026</span>
+      </div>
+
+      <div class="nav-right">
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span id="nav-status-text">Đã đồng bộ</span>
+        </div>
+        <button class="btn-action" id="btn-theme-toggle" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối">
+          <svg class="icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon theme-icon-moon" style="display:none;" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span id="theme-label">Tối</span>
+        </button>
+        <button class="btn-action" onclick="startGoogleLogin()">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span>Đồng bộ lại</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="app-body">
+      <!-- Left Course List -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-title">Môn học học kỳ</span>
+          <span class="course-count" id="sidebar-total-courses">0 môn</span>
+        </div>
+        <div class="course-list" id="sidebar-courses">
+          <!-- Dynamically populated -->
+        </div>
+      </aside>
+
+      <!-- Right Main Panel -->
+      <main class="main-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="course-meta-title" id="course-title">Chọn môn học</h2>
+            <div class="course-meta-desc">
+              <span class="meta-stat" id="stat-sessions">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span id="course-total-sessions">0 buổi học</span>
+              </span>
+              <span class="meta-stat" id="stat-class">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span id="course-class-name">-</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="view-controls">
+            <div class="search-input-wrap">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="search-input" id="search-box" placeholder="Tìm ngày, phòng, slot..." oninput="handleSearch()">
+            </div>
+
+            <div class="segmented-control">
+              <button class="seg-btn active" id="btn-view-grid" onclick="setViewMode('grid')">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Lưới
+              </button>
+              <button class="seg-btn" id="btn-view-table" onclick="setViewMode('table')">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Bảng
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-content">
+          <div class="sessions-grid" id="sessions-grid">
+            <!-- Dynamic Cards -->
+          </div>
+
+          <table class="sessions-table" id="sessions-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">STT</th>
+                <th>Ngày học</th>
+                <th>Khung giờ</th>
+                <th>Phòng</th>
+                <th>Giảng viên</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="sessions-table-body">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    let semesterData = null;
+    let activeCourseKey = null;
+    let currentViewMode = 'grid'; // 'grid' | 'table'
+
+    function updateSyncStatus(text) {
+      const box = document.getElementById('sync-status');
+      const textEl = document.getElementById('sync-text');
+      box.style.display = 'flex';
+      textEl.innerText = text;
+    }
+
+    function startGoogleLogin() {
+      updateSyncStatus("Đang mở phiên FAP để lấy dữ liệu...");
+      if (window.pywebview && window.pywebview.api) {
+        window.pywebview.api.login_and_sync().then(res => {
+          if (res && res.success && res.data) {
+            renderFullSemester(res.data);
+          } else {
+            updateSyncStatus(res.message || "Lỗi khi đồng bộ.");
+          }
+        }).catch(err => {
+          updateSyncStatus("Lỗi kết nối Python: " + err);
+        });
+      }
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      document.getElementById('btn-view-grid').classList.toggle('active', mode === 'grid');
+      document.getElementById('btn-view-table').classList.toggle('active', mode === 'table');
+      
+      const grid = document.getElementById('sessions-grid');
+      const table = document.getElementById('sessions-table');
+      
+      if (mode === 'grid') {
+        grid.style.display = 'grid';
+        table.style.display = 'none';
+      } else {
+        grid.style.display = 'none';
+        table.style.display = 'table';
+      }
+    }
+
+    function getStatusClass(status) {
+      const s = (status || '').toLowerCase();
+      if (s.includes('exempt') || s.includes('miễn')) return 'status-exempt';
+      if (s.includes('attended') || s.includes('có mặt')) return 'status-attended';
+      if (s.includes('absent') || s.includes('vắng')) return 'status-absent';
+      return 'status-future';
+    }
+
+    function renderFullSemester(fullData) {
+      if (!fullData || !fullData.courses) return;
+      semesterData = fullData;
+
+      document.getElementById('screen-login').style.display = 'none';
+      document.getElementById('screen-render').style.display = 'flex';
+
+      if (fullData.term_name) {
+        document.getElementById('nav-term').innerText = fullData.term_name;
+      }
+
+      const courseKeys = Object.keys(fullData.courses);
+      document.getElementById('sidebar-total-courses').innerText = `${courseKeys.length} môn`;
+
+      // Render Sidebar Courses
+      const sidebar = document.getElementById('sidebar-courses');
+      sidebar.innerHTML = '';
+
+      courseKeys.forEach((key, idx) => {
+        const c = fullData.courses[key];
+        const shortName = c.short_name || (key.split('(')[1] ? key.split('(')[1].split(')')[0] : key.substring(0, 10));
+        
+        const item = document.createElement('div');
+        item.className = `course-item ${idx === 0 ? 'active' : ''}`;
+        item.id = `course-tab-${idx}`;
+        item.onclick = () => selectCourse(key, idx);
+
+        item.innerHTML = `
+          <div class="course-item-header">
+            <span class="course-code">${shortName}</span>
+            <span class="course-count">${c.total_sessions} buổi</span>
+          </div>
+          <div class="course-name-sub" title="${key}">${key}</div>
+        `;
+        sidebar.appendChild(item);
+      });
+
+      if (courseKeys.length > 0) {
+        selectCourse(courseKeys[0], 0);
+      }
+    }
+
+    function selectCourse(courseKey, index) {
+      activeCourseKey = courseKey;
+      document.querySelectorAll('.course-item').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`course-tab-${index}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      const course = semesterData.courses[courseKey];
+      document.getElementById('course-title').innerText = courseKey;
+      document.getElementById('course-total-sessions').innerText = `${course.total_sessions} buổi học cả kỳ`;
+
+      const firstSession = course.sessions && course.sessions[0];
+      const className = firstSession ? firstSession.class_name : '-';
+      document.getElementById('course-class-name').innerText = `Lớp: ${className || '-'}`;
+
+      document.getElementById('search-box').value = '';
+      renderSessions(course.sessions);
+    }
+
+    function renderSessions(sessions) {
+      const grid = document.getElementById('sessions-grid');
+      const tableBody = document.getElementById('sessions-table-body');
+      grid.innerHTML = '';
+      tableBody.innerHTML = '';
+
+      if (!sessions || sessions.length === 0) {
+        grid.innerHTML = '<div class="empty-state">Không có buổi học nào.</div>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">Không có buổi học nào.</td></tr>';
+        return;
+      }
+
+      sessions.forEach(s => {
+        const statusClass = getStatusClass(s.status);
+        const statusLabel = s.status || 'Chưa học';
+
+        // 1. Grid Card
+        const card = document.createElement('div');
+        card.className = 'session-card';
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="badge-stt">Buổi ${s.stt}</span>
+            <span class="badge-status ${statusClass}">${statusLabel}</span>
+          </div>
+          <div class="card-date">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>${s.date}</span>
+          </div>
+          <div class="card-meta-row">
+            <div class="meta-group">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>${s.slot}</span>
+            </div>
+            <div class="badge-room">${s.room || '-'}</div>
+          </div>
+          <div class="card-meta-row" style="padding-top: 4px; border-top: none;">
+            <div class="meta-group" style="font-size: 11.5px;">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>${s.lecturer && s.lecturer !== '-' ? s.lecturer : 'Giảng viên'}</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+
+        // 2. Table Row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight: 600; color: var(--text-faint);">${s.stt}</td>
+          <td style="font-weight: 500;">${s.date}</td>
+          <td style="color: var(--text-muted);">${s.slot}</td>
+          <td><span class="badge-room">${s.room || '-'}</span></td>
+          <td style="color: var(--text-muted);">${s.lecturer || '-'}</td>
+          <td><span class="badge-status ${statusClass}">${statusLabel}</span></td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    function handleSearch() {
+      if (!activeCourseKey || !semesterData) return;
+      const q = document.getElementById('search-box').value.toLowerCase().trim();
+      const allSessions = semesterData.courses[activeCourseKey].sessions || [];
+
+      if (!q) {
+        renderSessions(allSessions);
+        return;
+      }
+
+      const filtered = allSessions.filter(s => 
+        (s.date && s.date.toLowerCase().includes(q)) ||
+        (s.slot && s.slot.toLowerCase().includes(q)) ||
+        (s.room && s.room.toLowerCase().includes(q)) ||
+        (s.lecturer && s.lecturer.toLowerCase().includes(q)) ||
+        (s.status && s.status.toLowerCase().includes(q))
+      );
+      renderSessions(filtered);
+    }
+
+    // Theme toggle handling
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('fu_theme', newTheme);
+      updateThemeIcon(newTheme);
+    }
+
+    function updateThemeIcon(theme) {
+      const sunIcons = document.querySelectorAll('.theme-icon-sun');
+      const moonIcons = document.querySelectorAll('.theme-icon-moon');
+      const label = document.getElementById('theme-label');
+      if (theme === 'dark') {
+        sunIcons.forEach(i => i.style.display = 'none');
+        moonIcons.forEach(i => i.style.display = 'block');
+        if (label) label.innerText = 'Sáng';
+      } else {
+        sunIcons.forEach(i => i.style.display = 'block');
+        moonIcons.forEach(i => i.style.display = 'none');
+        if (label) label.innerText = 'Tối';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('fu_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    window.addEventListener('DOMContentLoaded', () => updateThemeIcon(savedTheme));
+
+    // Auto-load if file already exists
+    window.addEventListener('pywebviewready', function() {
+      if (window.pywebview && window.pywebview.api) {
+        window.pywebview.api.check_existing_data().then(res => {
+          if (res && res.has_data && res.data) {
+            renderFullSemester(res.data);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
