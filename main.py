@@ -30,6 +30,9 @@ main_window = None
 popup_window = None
 
 
+flm_sync_running = False
+
+
 class AppAPI:
     """
     Controller API xử lý các yêu cầu gọi từ giao diện người dùng (JavaScript Bridge).
@@ -114,7 +117,10 @@ class AppAPI:
         Mục đích: Kích hoạt luồng đồng bộ Đề cương & Cột điểm FLM theo các mã môn từ FAP.
         Cơ chế: Chạy Zero-DOM FLMSyncPipeline trong background daemon thread.
         """
-        global popup_window, main_window
+        global popup_window, main_window, flm_sync_running
+        if flm_sync_running:
+            return {"success": False, "message": "Tiến trình đồng bộ FLM đang chạy, vui lòng chờ."}
+
         print("[INFO] Khoi tao cua so xac thuc FLM...")
 
         course_codes = []
@@ -132,6 +138,7 @@ class AppAPI:
         if not course_codes:
             return {"success": False, "message": "Chua co danh sach mon tu FAP. Vui long dong bo FAP truoc."}
 
+        flm_sync_running = True
         try:
             main_window.evaluate_js("updateFLMSyncStatus('Dang mo cua so FLM de ket noi...');")
         except Exception:
@@ -153,7 +160,7 @@ class AppAPI:
         """
         Thực thi tiến trình nền của FLMSyncPipeline và gửi dữ liệu chuẩn hóa về UI.
         """
-        global main_window
+        global main_window, flm_sync_running
         from flm_pipeline import FLMSyncPipeline
 
         def on_progress(message: str):
@@ -163,21 +170,24 @@ class AppAPI:
             except Exception:
                 pass
 
-        pipeline = FLMSyncPipeline(output_file=FLM_COURSES_JSON, course_codes=course_codes)
-        result = pipeline.execute(popup, progress_cb=on_progress)
-
-        if result:
-            clean_json = json.dumps(result, ensure_ascii=False)
-            try:
-                main_window.evaluate_js(f"renderFLMData({clean_json});")
-            except Exception as e:
-                print(f"[ERROR] Khong the gui du lieu FLM sang giao dien: {e}")
-
         try:
-            popup.destroy()
-            print("[INFO] Cua so xac thuc FLM da duoc dong an toan.")
-        except Exception:
-            pass
+            pipeline = FLMSyncPipeline(output_file=FLM_COURSES_JSON, course_codes=course_codes)
+            result = pipeline.execute(popup, progress_cb=on_progress)
+
+            if result:
+                clean_json = json.dumps(result, ensure_ascii=False)
+                try:
+                    main_window.evaluate_js(f"renderFLMData({clean_json});")
+                except Exception as e:
+                    print(f"[ERROR] Khong the gui du lieu FLM sang giao dien: {e}")
+        finally:
+            flm_sync_running = False
+            try:
+                popup.destroy()
+                print("[INFO] Cua so xac thuc FLM da duoc dong an toan.")
+            except Exception:
+                pass
+
 
 
 def main():
