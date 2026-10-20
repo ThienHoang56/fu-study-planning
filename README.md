@@ -31,11 +31,15 @@ pip install -r requirements.txt
 ```
 
 ### Chạy ứng dụng
-Sau khi đã kích hoạt môi trường ảo:
-```bash
-python main.py
-```
-Hoặc chạy trực tiếp qua Python của môi trường ảo:
-```bash
-.\.venv\Scripts\python.exe main.py
-```
+
+- **Cách nhanh nhất (khuyên dùng):**
+  Nhấp đúp vào file `run.bat` hoặc chạy từ terminal:
+  ```cmd
+  run.bat
+  ```
+  *(Script sẽ tự động khởi tạo `.venv` và cài đặt thư viện nếu chưa có, sau đó khởi chạy ứng dụng).*
+
+- **Hoặc chạy thủ công:**
+  ```bash
+  .\.venv\Scripts\python.exe main.py
+  ```
