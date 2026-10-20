@@ -23,6 +23,7 @@ if sys.platform == "win32":
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_HTML = os.path.join(BASE_DIR, "index.html")
 FULL_SCHEDULE_JSON = os.path.join(BASE_DIR, "fap_full_semester.json")
+FLM_COURSES_JSON = os.path.join(BASE_DIR, "flm_courses.json")
 PROFILE_DIR = os.path.join(BASE_DIR, "webview_profile")
 
 main_window = None
@@ -36,23 +37,30 @@ class AppAPI:
 
     def check_existing_data(self):
         """
-        Mục đích: Kiểm tra và nạp dữ liệu lịch học cả kỳ đã được đồng bộ từ trước.
-        Trả về:
-            Dict chứa cờ has_data và toàn bộ payload dữ liệu (nếu có).
+        Mục đích: Kiểm tra và nạp dữ liệu lịch học cả kỳ (FAP) và dữ liệu đề cương (FLM).
         """
+        response = {"has_data": False, "has_flm": False}
         if os.path.exists(FULL_SCHEDULE_JSON):
             try:
                 with open(FULL_SCHEDULE_JSON, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    return {"has_data": True, "data": data}
+                    response["has_data"] = True
+                    response["data"] = json.load(f)
             except Exception as e:
-                print(f"[ERROR] Khong the doc du lieu tu tep JSON: {e}")
-        return {"has_data": False}
+                print(f"[ERROR] Khong the doc du lieu tu tep FAP JSON: {e}")
+
+        if os.path.exists(FLM_COURSES_JSON):
+            try:
+                with open(FLM_COURSES_JSON, "r", encoding="utf-8") as f:
+                    response["has_flm"] = True
+                    response["flm_data"] = json.load(f)
+            except Exception as e:
+                print(f"[ERROR] Khong the doc du lieu tu tep FLM JSON: {e}")
+
+        return response
 
     def login_and_sync(self):
         """
         Mục đích: Kích hoạt luồng đồng bộ thời khóa biểu FAP thông qua cửa sổ popup WebView.
-        Cơ chế: Chạy pipeline bất đồng bộ trong background thread để không gây nghẽn giao diện.
         """
         global popup_window, main_window
         print("[INFO] Khoi tao cua so xac thuc FAP...")
@@ -62,7 +70,6 @@ class AppAPI:
         except Exception:
             pass
 
-        # Mở cửa sổ popup WebView điều hướng thẳng vào trang Attendance
         popup_window = webview.create_window(
             title="FAP Sync - Dong bo lich hoc hoc ky",
             url="https://fap.fpt.edu.vn/Report/Attendance",
@@ -70,7 +77,6 @@ class AppAPI:
             height=680
         )
 
-        # Chạy pipeline trong luồng riêng biệt (Daemon Thread)
         threading.Thread(target=self._run_pipeline_worker, args=(popup_window,), daemon=True).start()
         return {"success": True, "message": "Pipeline da khoi chay."}
 
@@ -87,7 +93,6 @@ class AppAPI:
             except Exception:
                 pass
 
-        # Khởi tạo pipeline và thực thi
         pipeline = FAPSyncPipeline(output_file=FULL_SCHEDULE_JSON)
         result = pipeline.execute(popup, progress_cb=on_progress)
 
@@ -98,10 +103,79 @@ class AppAPI:
             except Exception as e:
                 print(f"[ERROR] Khong the gui du lieu sang giao dien: {e}")
 
-        # Tự động giải phóng cửa sổ popup sau khi pipeline kết thúc
         try:
             popup.destroy()
-            print("[INFO] Cua so xac thuc da duoc dong an toan.")
+            print("[INFO] Cua so xac thuc FAP da duoc dong an toan.")
+        except Exception:
+            pass
+
+    def sync_flm(self):
+        """
+        Mục đích: Kích hoạt luồng đồng bộ Đề cương & Cột điểm FLM theo các mã môn từ FAP.
+        Cơ chế: Chạy Zero-DOM FLMSyncPipeline trong background daemon thread.
+        """
+        global popup_window, main_window
+        print("[INFO] Khoi tao cua so xac thuc FLM...")
+
+        course_codes = []
+        if os.path.exists(FULL_SCHEDULE_JSON):
+            try:
+                with open(FULL_SCHEDULE_JSON, "r", encoding="utf-8") as f:
+                    fap_data = json.load(f)
+                    for item in fap_data.get("courses", {}).values():
+                        code = item.get("short_name", "").strip()
+                        if code and code not in course_codes:
+                            course_codes.append(code)
+            except Exception as e:
+                print(f"[ERROR] Khong the doc ma mon tu FAP: {e}")
+
+        if not course_codes:
+            return {"success": False, "message": "Chua co danh sach mon tu FAP. Vui long dong bo FAP truoc."}
+
+        try:
+            main_window.evaluate_js("updateFLMSyncStatus('Dang mo cua so FLM de ket noi...');")
+        except Exception:
+            pass
+
+        from flm_pipeline import FLMSyncPipeline
+
+        popup_window = webview.create_window(
+            title="FLM Sync - Dong bo De cuong & Cot diem",
+            url="https://flm.fpt.edu.vn/Login",
+            width=950,
+            height=700
+        )
+
+        threading.Thread(target=self._run_flm_pipeline_worker, args=(popup_window, course_codes), daemon=True).start()
+        return {"success": True, "message": "FLM Pipeline da khoi chay."}
+
+    def _run_flm_pipeline_worker(self, popup, course_codes):
+        """
+        Thực thi tiến trình nền của FLMSyncPipeline và gửi dữ liệu chuẩn hóa về UI.
+        """
+        global main_window
+        from flm_pipeline import FLMSyncPipeline
+
+        def on_progress(message: str):
+            try:
+                escaped = message.replace("'", "\\'").replace("\n", " ")
+                main_window.evaluate_js(f"updateFLMSyncStatus('{escaped}');")
+            except Exception:
+                pass
+
+        pipeline = FLMSyncPipeline(output_file=FLM_COURSES_JSON, course_codes=course_codes)
+        result = pipeline.execute(popup, progress_cb=on_progress)
+
+        if result:
+            clean_json = json.dumps(result, ensure_ascii=False)
+            try:
+                main_window.evaluate_js(f"renderFLMData({clean_json});")
+            except Exception as e:
+                print(f"[ERROR] Khong the gui du lieu FLM sang giao dien: {e}")
+
+        try:
+            popup.destroy()
+            print("[INFO] Cua so xac thuc FLM da duoc dong an toan.")
         except Exception:
             pass
 

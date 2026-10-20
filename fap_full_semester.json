@@ -1,9 +1,43 @@
 {
   "term_id": "01a07ccd-e1df-7443-8265-8406ce90ee57",
   "term_name": "Fall2026",
-  "extracted_at": "2026-10-19T17:49:08Z",
-  "total_courses": 6,
+  "extracted_at": "2026-10-20T14:13:07Z",
+  "total_courses": 7,
   "courses": {
+    "Group Experiential Entrepreneurship 2 (EXE201g) (EXE201g_4G3)": {
+      "course_id": "01a0dcbb-55ec-73f1-8daf-7e1fbf6753da",
+      "short_name": "EXE201g",
+      "total_sessions": 3,
+      "sessions": [
+        {
+          "stt": "1",
+          "date": "Sunday 27/09/2026",
+          "slot": "09:30 - 11:45",
+          "room": "Gamma 206.",
+          "lecturer": "TrungL7",
+          "class_name": "EXE201g_4G3",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "2",
+          "date": "Sunday 18/10/2026",
+          "slot": "07:00 - 09:15",
+          "room": "Gamma 109.",
+          "lecturer": "TamTTT14",
+          "class_name": "EXE201g_4G3",
+          "status": "Attendance exempt"
+        },
+        {
+          "stt": "3",
+          "date": "Thursday 05/11/2026",
+          "slot": "17:30 - 19:45",
+          "room": "Gamma 206.",
+          "lecturer": "TrungL7",
+          "class_name": "EXE201g_4G3",
+          "status": "Attendance exempt"
+        }
+      ]
+    },
     "Experiential Entrepreneurship 2 (EXE201) (EXE201_4)": {
       "course_id": "01a07cce-5b23-7213-87a4-55736abd788a",
       "short_name": "EXE201",
