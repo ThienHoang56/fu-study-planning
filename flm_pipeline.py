@@ -55,6 +55,14 @@ class FLMSyncPipeline:
         # STAGE 1: AUTHENTICATION HANDSHAKE
         # ==============================================================================
         notify("FLM STAGE 1/4", "Kiem tra phien dang nhap FLM trong WebView2...")
+        try:
+            curr_url = popup.get_current_url() or ""
+            if "flm.fpt.edu.vn" not in curr_url:
+                popup.load_url("https://flm.fpt.edu.vn/Login")
+                time.sleep(2)
+        except Exception as e:
+            print(f"[FLM] Loi chuyen trang sang FLM: {e}")
+
         if not self._wait_for_auth(popup, timeout_sec=120):
             notify("ERROR", "Xac thuc FLM that bai hoac qua thoi gian cho.")
             return None
@@ -111,11 +119,29 @@ class FLMSyncPipeline:
     def _wait_for_auth(self, popup, timeout_sec: int = 120) -> bool:
         """
         Duy trì và theo dõi URL cho đến khi người dùng vượt qua trang đăng nhập FLM.
+        Tự động chọn cấp học FPTU nếu đang ở màn hình Login.
         """
         for _ in range(timeout_sec):
             time.sleep(1.2)
             try:
                 url = popup.get_current_url() or ""
+
+                # Nếu đang ở trang Login, tự động chọn FPTU trong dropdown
+                if "flm.fpt.edu.vn/login" in url.lower():
+                    try:
+                        popup.evaluate_js("""
+                            (function() {
+                                const sel = document.getElementById('drSelectEduLevel');
+                                if (sel && sel.value !== 'fptu') {
+                                    sel.value = 'fptu';
+                                    localStorage.setItem('SelectedEduLevel', 'fptu');
+                                    if (window.$) { $(sel).trigger('change'); }
+                                }
+                            })();
+                        """)
+                    except Exception:
+                        pass
+
                 # Nếu đã vào được trang Home, AllPrequisiteSubject hoặc các trang trong hệ thống FLM
                 if ("flm.fpt.edu.vn" in url and 
                     "login" not in url.lower() and 

@@ -63,59 +63,91 @@ class AppAPI:
 
     def login_and_sync(self):
         """
-        Mục đích: Kích hoạt luồng đồng bộ thời khóa biểu FAP thông qua cửa sổ popup WebView.
+        Mục đích: Kích hoạt luồng đồng bộ HỢP NHẤT TOÀN DIỆN (FAP + FLM) qua 1 cửa sổ popup duy nhất.
         """
-        global popup_window, main_window
-        print("[INFO] Khoi tao cua so xac thuc FAP...")
+        global popup_window, main_window, flm_sync_running
+        if flm_sync_running:
+            return {"success": False, "message": "Tiến trình đồng bộ đang chạy, vui lòng chờ."}
+
+        print("[INFO] Khoi tao cua so xac thuc dong bo hop nhat (FAP + FLM)...")
 
         try:
-            main_window.evaluate_js("updateSyncStatus('Dang mo cua so FAP de ket noi...');")
+            main_window.evaluate_js("updateSyncStatus('Dang mo cua so ket noi FAP...');")
         except Exception:
             pass
 
         popup_window = webview.create_window(
-            title="FAP Sync - Dong bo lich hoc hoc ky",
+            title="FU Sync - Dong bo toan dien FAP & FLM",
             url="https://fap.fpt.edu.vn/Report/Attendance",
-            width=900,
-            height=680
+            width=950,
+            height=700
         )
 
-        threading.Thread(target=self._run_pipeline_worker, args=(popup_window,), daemon=True).start()
-        return {"success": True, "message": "Pipeline da khoi chay."}
+        threading.Thread(target=self._run_unified_worker, args=(popup_window,), daemon=True).start()
+        return {"success": True, "message": "Pipeline hop nhat da khoi chay."}
 
-    def _run_pipeline_worker(self, popup):
+    def _run_unified_worker(self, popup):
         """
-        Thực thi tiến trình nền của FAPSyncPipeline và gửi dữ liệu chuẩn hóa về UI.
+        Thực thi tiến trình nền tuần tự 2 Phase:
+          1. Phase 1: Đồng bộ lịch học cả kỳ từ FAP
+          2. Phase 2: Tự động chuyển tiếp sang FLM đồng bộ Đề cương & Cột điểm
         """
-        global main_window
+        global main_window, flm_sync_running
+        flm_sync_running = True
 
         def on_progress(message: str):
             try:
                 escaped = message.replace("'", "\\'").replace("\n", " ")
                 main_window.evaluate_js(f"updateSyncStatus('{escaped}');")
+                main_window.evaluate_js(f"updateFLMSyncStatus('{escaped}');")
             except Exception:
                 pass
 
-        pipeline = FAPSyncPipeline(output_file=FULL_SCHEDULE_JSON)
-        result = pipeline.execute(popup, progress_cb=on_progress)
-
-        if result:
-            clean_json = json.dumps(result, ensure_ascii=False)
-            try:
-                main_window.evaluate_js(f"renderFullSemester({clean_json});")
-            except Exception as e:
-                print(f"[ERROR] Khong the gui du lieu sang giao dien: {e}")
-
         try:
-            popup.destroy()
-            print("[INFO] Cua so xac thuc FAP da duoc dong an toan.")
-        except Exception:
-            pass
+            # PHASE 1: FAP SYNC
+            on_progress("FAP (1/2): Kiem tra phien lam viec va lay lich hoc ca ky...")
+            pipeline_fap = FAPSyncPipeline(output_file=FULL_SCHEDULE_JSON)
+            result_fap = pipeline_fap.execute(popup, progress_cb=on_progress)
+
+            if not result_fap or not result_fap.get("courses"):
+                on_progress("Loi: Khong lay duoc du lieu FAP.")
+                return
+
+            clean_fap_json = json.dumps(result_fap, ensure_ascii=False)
+            try:
+                main_window.evaluate_js(f"renderFullSemester({clean_fap_json});")
+            except Exception as e:
+                print(f"[ERROR] Khong the gui du lieu FAP sang UI: {e}")
+
+            course_codes = [c.get("short_name", "").strip() for c in result_fap.get("courses", {}).values() if c.get("short_name")]
+
+            # PHASE 2: FLM SYNC (CHUYỂN TIẾP TRÊN CÙNG CỬA SỔ POPUP)
+            on_progress("FAP hoan tat! Tu dong chuyen tiep sang FLM de lay De cuong & Cot diem...")
+            time.sleep(1.5)
+
+            from flm_pipeline import FLMSyncPipeline
+            pipeline_flm = FLMSyncPipeline(output_file=FLM_COURSES_JSON, course_codes=course_codes)
+            result_flm = pipeline_flm.execute(popup, progress_cb=on_progress)
+
+            if result_flm:
+                clean_flm_json = json.dumps(result_flm, ensure_ascii=False)
+                try:
+                    main_window.evaluate_js(f"renderFLMData({clean_flm_json});")
+                except Exception as e:
+                    print(f"[ERROR] Khong the gui du lieu FLM sang UI: {e}")
+
+            on_progress("Dong bo thanh cong toan bo FAP & FLM!")
+        finally:
+            flm_sync_running = False
+            try:
+                popup.destroy()
+                print("[INFO] Cua so popup da duoc dong an toan.")
+            except Exception:
+                pass
 
     def sync_flm(self):
         """
-        Mục đích: Kích hoạt luồng đồng bộ Đề cương & Cột điểm FLM theo các mã môn từ FAP.
-        Cơ chế: Chạy Zero-DOM FLMSyncPipeline trong background daemon thread.
+        Mục đích: Đồng bộ riêng lẻ FLM (khi người dùng chỉ muốn lấy lại dữ liệu FLM).
         """
         global popup_window, main_window, flm_sync_running
         if flm_sync_running:
@@ -158,7 +190,7 @@ class AppAPI:
 
     def _run_flm_pipeline_worker(self, popup, course_codes):
         """
-        Thực thi tiến trình nền của FLMSyncPipeline và gửi dữ liệu chuẩn hóa về UI.
+        Thực thi riêng lẻ tiến trình nền của FLMSyncPipeline.
         """
         global main_window, flm_sync_running
         from flm_pipeline import FLMSyncPipeline
@@ -187,6 +219,7 @@ class AppAPI:
                 print("[INFO] Cua so xac thuc FLM da duoc dong an toan.")
             except Exception:
                 pass
+
 
 
 
