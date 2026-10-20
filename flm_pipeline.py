@@ -63,7 +63,7 @@ class FLMSyncPipeline:
         except Exception as e:
             print(f"[FLM] Loi chuyen trang sang FLM: {e}")
 
-        if not self._wait_for_auth(popup, timeout_sec=120):
+        if not self._wait_for_auth(popup, notify, timeout_sec=120):
             notify("ERROR", "Xac thuc FLM that bai hoac qua thoi gian cho.")
             return None
 
@@ -116,15 +116,20 @@ class FLMSyncPipeline:
 
         return flm_data
 
-    def _wait_for_auth(self, popup, timeout_sec: int = 120) -> bool:
+    def _wait_for_auth(self, popup, notify_fn, timeout_sec: int = 120) -> bool:
         """
         Duy trì và theo dõi URL cho đến khi người dùng vượt qua trang đăng nhập FLM.
         Tự động chọn cấp học FPTU nếu đang ở màn hình Login.
         """
-        for _ in range(timeout_sec):
+        last_notified_url = ""
+        for attempt in range(timeout_sec):
             time.sleep(1.2)
             try:
                 url = popup.get_current_url() or ""
+
+                if url and url != last_notified_url:
+                    last_notified_url = url
+                    print(f"[FLM AUTH] URL hien tai: {url}")
 
                 # Nếu đang ở trang Login, tự động chọn FPTU trong dropdown
                 if "flm.fpt.edu.vn/login" in url.lower():
@@ -142,15 +147,20 @@ class FLMSyncPipeline:
                     except Exception:
                         pass
 
-                # Nếu đã vào được trang Home, AllPrequisiteSubject hoặc các trang trong hệ thống FLM
-                if ("flm.fpt.edu.vn" in url and 
-                    "login" not in url.lower() and 
-                    "signin" not in url.lower() and 
-                    "accounts.google.com" not in url and 
-                    "feid.fpt.edu.vn" not in url):
-                    return True
+                # Nếu đã vào được trang Home, AllPrequisiteSubject hoặc các trang chức năng FLM
+                if "flm.fpt.edu.vn" in url:
+                    lower_url = url.lower()
+                    if "/home" in lower_url or "/gui/" in lower_url:
+                        notify_fn("SUCCESS", f"Xac thuc FLM thanh cong tai: {url}")
+                        return True
+                    if (not any(x in lower_url for x in ["login", "signin", "accounts.google.com", "feid.fpt.edu.vn"])
+                        and lower_url != "https://flm.fpt.edu.vn/"
+                        and lower_url != "https://flm.fpt.edu.vn"):
+                        notify_fn("SUCCESS", f"Xac thuc FLM thanh cong tai: {url}")
+                        return True
             except Exception:
-                return False
+                # Không thoát khi gặp exception do trình duyệt đang bận điều hướng
+                pass
         return False
 
     def _ingest_flm_network_stream(self, popup, notify_fn, timeout_sec: int = 120) -> Optional[Dict[str, Any]]:
